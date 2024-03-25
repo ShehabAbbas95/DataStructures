@@ -53,6 +53,9 @@ class LinkedList {
   insertAfter(targetValue, value) {
     const targetNode = this.getNode(targetValue);
     const newNode = new Node(value);
+    if (targetNode.next === null) {
+      this.tail = newNode;
+    }
     newNode.next = targetNode.next;
     targetNode.next = newNode;
     this.length++;
@@ -67,5 +70,5 @@ newList
   .addToLast(2)
   .addToLast(3);
 
-newList.insertAfter("C", "D");
+newList.insertAfter(3, 4);
 console.log(newList);
