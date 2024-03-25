@@ -41,7 +41,31 @@ class LinkedList {
     this.tail = oldNode;
     this.length--;
   }
+  getNode(value) {
+    let currentNode = this.head;
+    let index = 0;
+    while (currentNode.value !== value) {
+      currentNode = currentNode.next;
+      index++;
+    }
+    return currentNode;
+  }
+  insertAfter(targetValue, value) {
+    const targetNode = this.getNode(targetValue);
+    const newNode = new Node(value);
+    newNode.next = targetNode.next;
+    targetNode.next = newNode;
+    this.length++;
+  }
 }
 const newList = new LinkedList();
-newList.add("A").add("B").add("C").add(1).add(2).add(3);
-newList.remove();
+newList
+  .addToLast("A")
+  .addToLast("B")
+  .addToLast("C")
+  .addToLast(1)
+  .addToLast(2)
+  .addToLast(3);
+
+newList.insertAfter("C", "D");
+console.log(newList);
