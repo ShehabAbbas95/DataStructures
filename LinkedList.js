@@ -32,33 +32,51 @@ class LinkedList {
       return null;
     }
     let currentNode = this.head;
-    let oldNode = null;
+    let preNode = null;
     while (currentNode.next) {
-      oldNode = currentNode;
+      preNode = currentNode;
       currentNode = currentNode.next;
     }
-    oldNode.next = null;
-    this.tail = oldNode;
+    preNode.next = null;
+    this.tail = preNode;
     this.length--;
   }
   getNode(value) {
-    let currentNode = this.head;
-    let index = 0;
+    let currentNode = this.head,
+      index = 0,
+      preNode = null,
+      nextNode = null;
+
     while (currentNode.value !== value) {
+      preNode = currentNode;
       currentNode = currentNode.next;
       index++;
     }
-    return currentNode;
+    nextNode = currentNode.next;
+    return { index, preNode, currentNode, nextNode };
   }
   insertAfter(targetValue, value) {
-    const targetNode = this.getNode(targetValue);
+    const { currentNode } = this.getNode(targetValue);
     const newNode = new Node(value);
-    if (targetNode.next === null) {
+    if (currentNode.next === null) {
       this.tail = newNode;
     }
-    newNode.next = targetNode.next;
-    targetNode.next = newNode;
+    newNode.next = currentNode.next;
+    currentNode.next = newNode;
     this.length++;
+  }
+  insertBefore(targetValue, value) {
+    const { preNode, currentNode } = this.getNode(targetValue);
+    const newNode = new Node(value);
+    this.length++;
+    if (!preNode) {
+      this.head = newNode;
+      newNode.next = currentNode;
+      return;
+    }
+    preNode.next = newNode;
+    newNode.next = currentNode;
+    return;
   }
 }
 const newList = new LinkedList();
@@ -70,5 +88,5 @@ newList
   .addToLast(2)
   .addToLast(3);
 
-newList.insertAfter(3, 4);
+newList.insertBefore(1, 4);
 console.log(newList);
