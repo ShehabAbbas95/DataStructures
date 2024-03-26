@@ -84,6 +84,21 @@ class DoublyLinkedList {
     currentNode.pre = newNode;
     return;
   }
+  removeNode(targetValue) {
+    const { preNode, currentNode, nextNode } = this.getNode(targetValue);
+    if (!currentNode) {
+      return null;
+    }
+    if (!preNode) {
+      this.head = currentNode.next;
+      this.head.pre = null;
+      this.length--;
+      return;
+    }
+    preNode.next = currentNode.next;
+    nextNode.pre = preNode;
+    this.length--;
+  }
 }
 const newList = new DoublyLinkedList();
 newList.add("A").add("B").add("C").add(1).add(2).add(3);
