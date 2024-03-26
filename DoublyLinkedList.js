@@ -89,15 +89,19 @@ class DoublyLinkedList {
     if (!currentNode) {
       return null;
     }
+    this.length--;
+    if (!preNode && !nextNode) {
+      this.head = null;
+      this.tail = null;
+      return;
+    }
     if (!preNode) {
       this.head = currentNode.next;
       this.head.pre = null;
-      this.length--;
       return;
     }
     preNode.next = currentNode.next;
     nextNode.pre = preNode;
-    this.length--;
   }
 }
 const newList = new DoublyLinkedList();
