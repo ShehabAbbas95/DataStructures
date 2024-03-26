@@ -19,13 +19,10 @@ class DoublyLinkedList {
       this.length++;
       return this;
     }
-    let currentNode = this.head;
-    while (currentNode.next) {
-      currentNode = currentNode.next;
-    }
-    currentNode.next = newNode;
+
+    this.tail.next = newNode;
+    newNode.pre = this.tail;
     this.tail = newNode;
-    newNode.pre = currentNode;
     this.length++;
     return this;
   }
